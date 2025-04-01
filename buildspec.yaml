@@ -4,22 +4,22 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 761018853069.dkr.ecr.us-east-1.amazonaws.com
+      - aaws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 761018853069.dkr.ecr.us-east-1.amazonaws.com
 
   build:
     commands:
       - echo Build started
       - echo Building the Docker image
-      - docker build -t delarosa/assignment3-repo .
-      - docker tag delarosa/assignment3-repo:latest 761018853069.dkr.ecr.us-east-1.amazonaws.com/delarosa/assignment3-repo:latest
+      - docker build -t delarosa-assign3-repo .
+      - docker tag delarosa-assign3-repo:latest 761018853069.dkr.ecr.us-east-1.amazonaws.com/delarosa-assign3-repo:latest
 
   post_build:
     commands:
       - echo Build completed
       - echo Pushing the Docker image to Amazon ECR...
-      - docker push 761018853069.dkr.ecr.us-east-1.amazonaws.com/delarosa/assignment3-repo:latest
+      - docker push 761018853069.dkr.ecr.us-east-1.amazonaws.com/delarosa-assign3-repo:latest
       - echo "Build and push completed successfully!"
-      - printf '[{"name":"%s","imageUri":"%s"}]' "delarosa/assignment3-repo" "761018853069.dkr.ecr.us-east-1.amazonaws.com/delarosa/assignment3-repo" > imagedefinitions.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' "delarosa-assign3-repo" "761018853069.dkr.ecr.us-east-1.amazonaws.com/delarosa-assign3-repo" > imagedefinitions.json
 
 artifacts:
   files: imagedefinitions.json
