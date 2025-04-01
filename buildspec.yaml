@@ -5,7 +5,7 @@ env:
     IMAGE_REPO_NAME: "delarosa/assignment3-repo"  # Change this to your ECR repository name
     IMAGE_TAG: "latest"
   parameter-store:
-    AWS_ACCOUNT_ID: "/codebuild/761018853069  # Store your AWS Account ID in SSM Parameter Store
+    AWS_ACCOUNT_ID: "/codebuild/761018853069" # Store your AWS Account ID in SSM Parameter Store
     AWS_REGION: "/codebuild/us-east-1"  # Store AWS Region in SSM Parameter Store
 
 phases:
