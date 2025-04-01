@@ -1,30 +1,27 @@
 version: 0.2
 
-env:
-  variables:
-    IMAGE_REPO_NAME: "delarosa/assignment3-repo"  # Change this to your ECR repository name
-    IMAGE_TAG: "latest"
-  parameter-store:
-    AWS_ACCOUNT_ID: "/codebuild/761018853069"  # Store your AWS Account ID in SSM Parameter Store
-    AWS_REGION: "/codebuild/us-east-1"  # Store AWS Region in SSM Parameter Store
-
 phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
-      - echo "Retrieving repository URI..."
-      - REPO_URI="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME"
-      - echo "Repository URI: $REPO_URI"
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 761018853069.dkr.ecr.us-east-1.amazonaws.com
+
 
   build:
     commands:
-      - echo Building the Docker image...
-      - docker build -t $IMAGE_REPO_NAME .  # Build the image with the correct repo name
-      - docker tag $IMAGE_REPO_NAME:latest $REPO_URI:$IMAGE_TAG  # Tag the image correctly
+      - echo Build started
+      - echo Building the Docker image
+      - docker build -t delarosa/assignment3-repo .  
+      - docker tag delarosa/assignment3-repo:latest 761018853069.dkr.ecr.us-east-1.amazonaws.com/delarosa/assignment3-repo:latest
 
   post_build:
     commands:
+      - echo build completed
       - echo Pushing the Docker image to Amazon ECR...
-      - docker push $REPO_URI:$IMAGE_TAG
+      - docker push 761018853069.dkr.ecr.us-east-1.amazonaws.com/delarosa/assignment3-repo:latest
       - echo "Build and push completed successfully!"
+      - print '[{"name":"%s","imageUri":"%s"}]' "delarosa/assignment3-repo" "761018853069.dkr.ecr.us-east-1.amazonaws.com/delarosa/assignment3-repo" > imagedefinitions.json
+  
+  artifacts:
+    files:
+      - imagedefinitions.json
