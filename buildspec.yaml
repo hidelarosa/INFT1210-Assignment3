@@ -21,6 +21,3 @@ phases:
       - echo "Build and push completed successfully!"
       - printf '[{"name":"%s","imageUri":"%s"}]' "delarosa/assignment3-repo" "761018853069.dkr.ecr.us-east-1.amazonaws.com/delarosa/assignment3-repo" > imagedefinitions.json
 
-artifacts:
-  files:
-    - imagedefinitions.json
