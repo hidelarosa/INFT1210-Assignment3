@@ -1,8 +1,12 @@
 steps:
+  # Step 1: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/delarosa-assign3/my-image', '.']
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['docker', 'push', 'gcr.io/delarosa-assign3/my-image']
+
+  # Step 2: Push the Docker image to Google Container Registry (GCR)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/delarosa-assign3/my-image']
+
 timeout: 600s
 serviceAccount: 'projects/delarosa-assign3/serviceAccounts/my-service-account@delarosa-assign3.iam.gserviceaccount.com'
 
