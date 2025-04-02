@@ -6,3 +6,6 @@ steps:
 timeout: 600s
 serviceAccount: 'projects/delarosa-assign3/serviceAccounts/my-service-account@delarosa-assign3.iam.gserviceaccount.com'
 
+options:
+  logging: NONE
+
