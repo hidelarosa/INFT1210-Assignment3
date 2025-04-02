@@ -5,4 +5,4 @@ steps:
     args: ['docker', 'push', 'gcr.io/delarosa-assign3/my-image']
 timeout: 600s
 serviceAccount: 'projects/delarosa-assign3/serviceAccounts/my-service-account@delarosa-assign3.iam.gserviceaccount.com'
-logging: 'NONE'  # Or 'NONE' if you don't need logs
+
